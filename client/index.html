@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B0B0C" />
+    <meta name="description" content="AICTE Integrated Case Monitoring — synthetic demonstration workspace for institution-level case coordination." />
+    <script>
+      (() => {
+        let preference = "dark";
+        try {
+          const stored = localStorage.getItem("aicte-theme-preference");
+          if (stored === "dark" || stored === "light" || stored === "system") preference = stored;
+        } catch (_) {}
+        const dark = preference === "system"
+          ? (window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)").matches : true)
+          : preference === "dark";
+        const root = document.documentElement;
+        root.classList.toggle("dark", dark);
+        root.dataset.theme = dark ? "dark" : "light";
+        root.style.colorScheme = dark ? "dark" : "light";
+      })();
+    </script>
+    <title>AICTE | Integrated Case Monitoring</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/api/platform/config.js"></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

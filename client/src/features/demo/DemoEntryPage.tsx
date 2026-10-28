@@ -1,0 +1,12 @@
+import { useState } from "react";
+import { ArrowRight, Building2, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useDemoStore } from "@/contexts/DemoStore";
+import type { Role } from "@/types/domain";
+
+const roles: Role[] = ["Senior Management", "RB Officer", "PGRC Officer", "Regional Office Officer", "Administrator"];
+export function DemoEntryPage({ onEnter }: { onEnter: () => void }) {
+  const { dispatch } = useDemoStore();
+  const [role, setRole] = useState<Role>("Senior Management");
+  return <main className="demo-entry"><div className="entry-brand"><span className="brand-symbol"><img src="/case-mark.svg" alt="" /></span><span><strong>AICTE <i>|</i> INTEGRATED CASE MONITORING</strong><small>Institution Grievance &amp; Regulatory Coordination System</small></span></div><div className="entry-content"><div className="entry-eyebrow"><span className="demo-dot" />DEMONSTRATION WORKSPACE</div><h1>A shared view of institution-level casework.</h1><p>Review synthetic complaints, regulatory actions, and potential cross-bureau overlaps in one place.</p><div className="entry-card"><div className="entry-card-head"><span className="entry-shield"><ShieldCheck size={18} /></span><div><strong>Enter demo mode</strong><small>No institutional login or credentials are collected.</small></div></div><label className="entry-label" htmlFor="demo-role">Choose a demonstration role</label><select id="demo-role" value={role} onChange={(event) => setRole(event.target.value as Role)}>{roles.map((item) => <option key={item}>{item}</option>)}</select><Button size="lg" className="entry-button" onClick={() => { dispatch({ type: "set-role", role }); dispatch({ type: "enter" }); onEnter(); }}>Open demo workspace <ArrowRight size={16} /></Button><div className="entry-safe"><CheckCircle2 size={14} /><span>Sample records only · Changes stay in this browser</span></div></div><div className="entry-capabilities"><div><Building2 size={15} /><span>Institution 360° context</span></div><div><ShieldCheck size={15} /><span>Human-reviewed overlaps</span></div><div><CheckCircle2 size={15} /><span>Locally persisted demo actions</span></div></div><div className="entry-warning">Prototype only · Not a real AICTE system · No live data, backend authentication, or official submissions</div></div><footer className="entry-footer"><span>AICTE Integrated Case Monitoring</span><span>Prototype · Sample data · 2026</span></footer></main>;
+}
